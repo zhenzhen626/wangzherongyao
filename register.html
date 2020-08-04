@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>注册</title>
+  <link rel="stylesheet" href="./css/login.css">
+  <script src="./lib/jquery-1.12.2.js"></script>
+
+  <script>
+    // 1. 用户名验证
+    // function validate() {
+    //   // 1.1 获取输入框的值
+    //   const username = $('#userName').val();
+    //   // 1.2 判断用户名是否为空，空则不执行ajax
+    //   if (!username) {
+    //     return;
+    //   }
+
+    //   // 1.3 发送请求
+    //   $.get({
+    //     url: 'http://127.0.0.1:3001/validate',
+    //     data: {username},
+    //     success: (data) => {
+    //       if (data.code === 200) {
+    //         $('#tips').css('color', 'green');
+    //       } else {
+    //         $('#tips').css('color', 'red');
+    //       }
+    //       $('#tips').text(data.msg);
+    //     },
+    //     timeout: 2000,
+    //     error: (jqXhr, textStatus) => {
+    //       if (textStatus === 'timeout') {
+    //         alert('你的网络太慢了，请重新加载');
+    //       } else if (textStatus === 'error') {
+    //         alert('你的网络断开了');
+    //       }
+    //     }
+    //   })
+    // }
+
+    // 2. 注册功能
+    function register() {
+      // 2.1 获取用户名和密码
+      const username = $('#userName').val();
+      const password = $('#userPwd').val();
+      // 2.2 发送请求
+      $.post({
+        url: 'http://127.0.0.1:3001/register',
+        data: {username, password},
+        success: (res) => {
+          if (res.code === 200) {
+           
+            window.location.href = '/login.html';
+          } 
+        }
+      })
+    }
+  </script>
+
+</head>
+
+<body>
+  <div class="wraper">
+    <div class="container">
+      <div class="logo">
+        <img class="icon" src="./images/logo.png" />
+        <div class="title">英雄管理系统</div>
+      </div>
+      <div class="input-container">
+        <div class="phone">
+          <img class="icon" src="./images/phone.png" />
+          <input placeholder="用户名" type="text" id="userName" name="userName">
+        </div>
+        <div id="tips"></div>
+        <div class="validate">
+          <div class="code">
+            <img class="icon" src="./images/mail.png" />
+            <input placeholder="密码" type="password" id="userPwd" name="userPwd" />
+          </div>
+        </div>
+      </div>
+      <div id="success"></div>
+      <input type="submit" class="btn" value="注册" onclick="register()">
+    </div>
+  </div>
+</body>
+
+</html>
